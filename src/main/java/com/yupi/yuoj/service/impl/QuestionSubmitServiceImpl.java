@@ -33,7 +33,6 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
     /**
      * 提交题目
      *
-     * @param questionQuestionId
      * @param questionSubmitAddRequest
      * @param loginUser
      * @return
