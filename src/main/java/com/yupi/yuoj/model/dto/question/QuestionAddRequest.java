@@ -40,12 +40,12 @@ public class QuestionAddRequest implements Serializable {
     /**
      * todo 判题用例(json数组)
      */
-    private String judgeCase;
+    private List<JudgeCase> judgeCase;
 
     /**
      * todo 判题配置(json对象)
      */
-    private String judgeConfig;
+    private JudgeConfig judgeConfig;
 
     private static final long serialVersionUID = 1L;
 }

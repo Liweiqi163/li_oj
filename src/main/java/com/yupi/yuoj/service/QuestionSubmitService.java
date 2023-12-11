@@ -1,7 +1,9 @@
 package com.yupi.yuoj.service;
 
-import com.yupi.yuoj.model.entity.QuestionSubmit;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.yupi.yuoj.model.dto.questionsubmit.QuestionSubmitAddRequest;
+import com.yupi.yuoj.model.entity.QuestionSubmit;
+import com.yupi.yuoj.model.entity.User;
 
 /**
 * @author 李玮奇
@@ -9,5 +11,13 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2023-12-11 11:06:16
 */
 public interface QuestionSubmitService extends IService<QuestionSubmit> {
-
+    /**
+     * 提交题目
+     *
+     * @param questionSubmitAddRequest 题目提交信息
+     * @param questionSubmitAddRequest
+     * @param loginUser
+     * @return
+     */
+    long doQuestionSubmit(QuestionSubmitAddRequest questionSubmitAddRequest, User loginUser);
 }
