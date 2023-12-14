@@ -10,10 +10,8 @@ import com.yupi.yuoj.common.ResultUtils;
 import com.yupi.yuoj.constant.UserConstant;
 import com.yupi.yuoj.exception.BusinessException;
 import com.yupi.yuoj.exception.ThrowUtils;
-import com.yupi.yuoj.model.dto.question.QuestionAddRequest;
-import com.yupi.yuoj.model.dto.question.QuestionEditRequest;
-import com.yupi.yuoj.model.dto.question.QuestionQueryRequest;
-import com.yupi.yuoj.model.dto.question.QuestionUpdateRequest;
+import com.yupi.yuoj.model.dto.question.*;
+import com.yupi.yuoj.model.dto.user.UserQueryRequest;
 import com.yupi.yuoj.model.entity.Question;
 import com.yupi.yuoj.model.entity.User;
 import com.yupi.yuoj.model.vo.QuestionVO;
@@ -67,6 +65,15 @@ public class QuestionController {
             question.setTags(GSON.toJson(tags));
         }
         questionService.validQuestion(question, true);
+        List<JudgeCase> judgeCase = questionAddRequest.getJudgeCase();
+        if (judgeCase!=null){
+            question.setJudgeCase(GSON.toJson(judgeCase));
+        }
+
+        JudgeConfig judgeConfig = questionAddRequest.getJudgeConfig();
+        if (judgeConfig!=null){
+            question.setJudgeCase(GSON.toJson(judgeConfig));
+        }
         User loginUser = userService.getLoginUser(request);
         question.setUserId(loginUser.getId());
         question.setFavourNum(0);
@@ -75,6 +82,24 @@ public class QuestionController {
         ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
         long newQuestionId = question.getId();
         return ResultUtils.success(newQuestionId);
+    }
+
+    /**
+     * 分页获取题目列表（仅管理员）
+     *
+     * @param questionQueryRequest
+     * @param request
+     * @return
+     */
+    @PostMapping("/list/page")
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
+    public BaseResponse<Page<Question>> listQuestionByPage(@RequestBody QuestionQueryRequest questionQueryRequest,
+                                                   HttpServletRequest request) {
+        long current = questionQueryRequest.getCurrent();
+        long size = questionQueryRequest.getPageSize();
+        Page<Question> questionPage = questionService.page(new Page<>(current, size),
+                questionService.getQueryWrapper(questionQueryRequest));
+        return ResultUtils.success(questionPage);
     }
 
     /**

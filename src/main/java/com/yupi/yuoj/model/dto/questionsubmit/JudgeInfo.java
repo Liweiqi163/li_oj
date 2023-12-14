@@ -1,7 +1,17 @@
 package com.yupi.yuoj.model.dto.questionsubmit;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
 * 判题信息
 */
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class JudgeInfo {
 
     /**

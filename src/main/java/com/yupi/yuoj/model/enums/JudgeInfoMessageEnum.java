@@ -23,7 +23,9 @@ public enum JudgeInfoMessageEnum {
     OUTPUT_LIMIT_EXCEEDED("输出溢出","Output Limit Exceeded"),
     DANGEROUS_OPERATION("危险操作","Dangerous Operation"),
     RUNTIME_ERROR("运行错误","Runtime_Error"),
-    SYSTEM_ERROR("系统错误","System error");
+    SYSTEM_ERROR("系统错误","System error"),
+
+    WAITING("等待中","Waiting");
 
 
     private final String text;
